@@ -192,9 +192,9 @@ function ajoutParticipant(){
     this.sexe = sexe;
   }
 
-  listParticipant.push(participant.prenom += " " + participant.nom.toUpperCase() + " " + participant.sexe);
+  listParticipant.push(participant);
  //show
- button = document.createElement('button');      //creating element
+  button = document.createElement('button');      //creating element
 
   //adding class Name on the element
   if (sexe == "femme") {
@@ -213,7 +213,7 @@ function ajoutParticipant(){
   var  affichageParticipants = document.getElementById("participants");
 
   for (j; j < listParticipant.length; j++) {
-    button.textContent += listParticipant[j].replace("femme", "").replace("homme", ""); 
+    button.textContent += listParticipant[j].prenom + " " + listParticipant[j].nom; 
     affichageParticipants.appendChild(button);  
   }
 
@@ -296,46 +296,67 @@ function getSelectValueNbGroupe(nbGroupe)
 	return selectElmt.options[selectElmt.selectedIndex].value;
 }
 
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 //#####------Griser champs non choisie Groups-----##########################//*/
 
 function gen(){
   var T_groupe = getSelectValueTGroupe('tGroupe');
   var Nb_Groupe = getSelectValueNbGroupe('nbGroupe');
-  var depassement=listParticipant.length%T_groupe;
+  var depassement = listParticipant.length % T_groupe;
 
-  if ( depassement==0) {// si c'est pair 
+  if ( depassement == 0) {// si c'est pair 
     for( i=0;i<=Nb_Groupe-1;i++){
       var valeur;
       var element_crée;
-      var sup_dans_liste_partcipant;
+      var supprimParticipantDouble;
       let liste=[];
-
-
+      
       for (let nb = 0; nb <= T_groupe-1; nb++) {
         valeur=Math.floor(Math.random() * listParticipant.length);  
         liste.push(listParticipant[valeur]);
-        sup_dans_liste_partcipant = listParticipant.indexOf(listParticipant[valeur]);
-        listParticipant.splice(sup_dans_liste_partcipant, 1); //add in myIndex
+        console.dir(liste[nb].sexe);
+        
+        /* */
+        supprimParticipantDouble = listParticipant.indexOf(listParticipant[valeur]);
+        listParticipant.splice(supprimParticipantDouble, 1); //add in myIndex
       }
       //show
-     
       for (let i = 0; i <1; i++) {
         element_crée = document.createElement('div');
         var  element_recuperer_dans_le_html=document.getElementById("result"); //creating element
         element_crée.className = 'resultat'; //adding class Name on the element
-        element_crée.textContent+="GROUPE "+nb+"\r\n";//add the content in the element
+        element_crée.textContent += "GROUPE "+nb+"\r\n";//add the content in the element
         element_recuperer_dans_le_html.appendChild(element_crée);
-          
+        
         for (let j = 0; j < T_groupe ; j++) {
+          var sexe = liste[j].sexe;
           //creation des element necesaire pour crée les div pour chaque nom
-          var person_couleur=document.createElement('div')
-          var div_par_parsone=document.createTextNode(liste[j]+'\r\n');
+          var participant = document.createElement('div')
+          var div_par_parsone=document.createTextNode(liste[j].nom + " " + liste[j].prenom + '\r\n');
           //ajout defant et pointage  sur le premier enfant courant crée
-          
-          // vaut mieux ajouter la class du sexe dans la ligne vide person_couleur.className=" nom de la class";
-          person_couleur.appendChild(div_par_parsone);
+          if (sexe == "femme") {
+            participant.className = "participant nomPrenomFemme";
+          } else {
+            participant.className = "participant nomPrenomHomme"
+          }
+          // vaut mieux ajouter la class du sexe dans la ligne vide participant.className=" nom de la class";
+          participant.appendChild(div_par_parsone);
           var cible=element_crée;
-          cible.appendChild(person_couleur);
+          cible.appendChild(participant);
   
         }
       
@@ -348,18 +369,19 @@ function gen(){
     for( i=0;i<=Nb_Groupe-1;i++){
       var valeur;
       var element_crée;
-      var sup_dans_liste_partcipant;
-      let liste=[];
-      let res=0;
+      var supprimParticipantDouble;
+      let liste = [];
+      let res = 0;
 
       for (let nb = 0; nb <= T_groupe-1; nb++) {
-        valeur=Math.floor(Math.random() * listParticipant.length);  
+        valeur = Math.floor(Math.random() * listParticipant.length);  
         liste.push(listParticipant[valeur]);
-        sup_dans_liste_partcipant = listParticipant.indexOf(listParticipant[valeur]);
-        listParticipant.splice(sup_dans_liste_partcipant, 1); //add in myIndex
+        supprimParticipantDouble = listParticipant.indexOf(listParticipant[valeur]);
+        listParticipant.splice(supprimParticipantDouble, 1); //add in myIndex
         res++;
+
       }
-      if (res==T_groupe-1 ) {
+      if (res == T_groupe-1 ) {
         valeur=Math.floor(Math.random() * listParticipant.length);  
         liste.push(listParticipant[valeur]);
         sup_dans_liste_partcipant = listParticipant.indexOf(listParticipant[valeur]);
@@ -375,20 +397,20 @@ function gen(){
         element_recuperer_dans_le_html.appendChild(element_crée);
           
         for (let j = 0; j < liste.length ; j++) {
-          if(liste[j]==undefined){
+          if (liste[j] == undefined){
             break;
           }
           //creation des element necesaire pour crée les div pour chaque nom
-          var person_couleur=document.createElement('div')
+          var participant=document.createElement('div')
           var div_par_parsone=document.createTextNode(liste[j]+'\r\n');
           //ajout defant et pointage  sur le premier enfant courant crée
           
-          // vaut mieux ajouter la class du sexe dans la ligne vide person_couleur.className=" nom de la class";
+          // vaut mieux ajouter la class du sexe dans la ligne vide participant.className=" nom de la class";
           
-          person_couleur.appendChild(div_par_parsone);
+          participant.appendChild(div_par_parsone);
           //  div_par_persone.replace(/femme/gi, " ");
           var cible=element_crée;
-          cible.appendChild(person_couleur);
+          cible.appendChild(participant);
         }
       nb++;
       }
@@ -426,16 +448,16 @@ function gen(){
             break;
           }
           //creation des element necesaire pour crée les div pour chaque nom
-          var person_couleur=document.createElement('div')
+          var participant=document.createElement('div')
           var div_par_parsone=document.createTextNode(liste[j]+'\r\n');
           //ajout defant et pointage  sur le premier enfant courant crée
           
-          // vaut mieux ajouter la class du sexe dans la ligne vide person_couleur.className=" nom de la class";
+          // vaut mieux ajouter la class du sexe dans la ligne vide participant.className=" nom de la class";
           
-          person_couleur.appendChild(div_par_parsone);
+          participant.appendChild(div_par_parsone);
           //  div_par_persone.replace(/femme/gi, " ");
           var cible=element_crée;
-          cible.appendChild(person_couleur);
+          cible.appendChild(participant);
         }
       nb++;
       }
