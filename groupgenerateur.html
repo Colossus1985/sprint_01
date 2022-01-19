@@ -32,7 +32,7 @@ Ceci se passe de commentaire.
                         </div>
                         <div class = "name_container">
                             <label for = "name" class = "labelName">Name</label><br>
-                            <input type = "text" id="name" class="inputsName" name = "name" maxlength="10">   
+                            <input type = "text" id="name" class="inputsName" name = "name" maxlength="15">   
                         </div>
                         <div class= "ajout">
                             <img src = "img\plus.png" onclick = main() type="submit" class="buttonAjou" alt = "ajouter">
@@ -56,7 +56,7 @@ Ceci se passe de commentaire.
                 <div class = "choixGroup">
                     <div class ="group">
                         <div class = "radioNbGroup">
-                            <input id = "radioBTNNbGroup" onclick = hideShowNbGroup() type = "button"  value="Nb groupe" name="groupchoix">
+                            <input id = "radioBTNNbGroup" onclick = hideShowNbGroup() type = "button"  value="Nb of Groups" name="groupchoix">
                         </div>
                         <div id = "inputNbGroupe">
                             <select id = "nbGroupe">
@@ -73,7 +73,7 @@ Ceci se passe de commentaire.
                     </div>
                     <div class ="group" id="taille">
                         <div class = "radioTGroup">
-                            <input id = "radioBTNTGroup" type = "button" onclick = hideShowTGroup() value="Taille Groupe" name="groupchoix">
+                            <input id = "radioBTNTGroup" type = "button" onclick = hideShowTGroup() value="Group Size" name="groupchoix">
                         </div>
                         <div id = "inputTGroupe">
                             <select id = "tGroupe">
@@ -92,7 +92,7 @@ Ceci se passe de commentaire.
             </div>
             <div class = "buttom_container">
                 <div class= "generate">
-                    <a href = "#" class = "buttonCre" onclick="gen()">Show teams</a>
+                    <button type = "button" id = "btnCreer" class = "buttonCre" onclick="gen()">Show teams</button>
                 </div>
             </div>
         </div>
@@ -132,7 +132,9 @@ Ceci se passe de commentaire.
     </div>
 
     <footer>
-        <p class = "footertext">&copy; Moina, Stéphane, Steve</p>
+        <p class = "footertext">&copy; Created by Moina, Stéphane, Steve </br>
+										20 december 2021 at 14 january 2022 as part of the training by</p> 
+		<a href = "https://simplon.co/" class "simplon" target= "_blank");>SIMPLON.CO</a>
         <a href="#haut" class = "AimgRetourPage">
             <img class = "imgRetourPage" src = "img/RetourPage.png"></a>
     </footer>
