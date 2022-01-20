@@ -1,9 +1,9 @@
 //var regexPrenom = /^([a-zA-Za-zàâçéèêëîïôûùüÿñæœ" "]+)$/;                 /*    /^([a-zA-Z ]+)$/   /^[a-zàâçéèêëîïôûùüÿñæœ .-]*$/i   */
 //var regexNom = /^([a-zA-Z ]+)$/;
 var regex = /^([a-zA-Za-zàâçéèêëîïôûùüÿñæœ ]+)$/;
-var prenom = document.getElementById("fname").value.toString().replaceAll(" ", "");
+var prenom = document.getElementById("fname").value.toString().replace(" ", "");
 prenom = upperCaseFirstLetter(prenom);
-var nom = document.getElementById("name").value.toString().replaceAll(" ", "");
+var nom = document.getElementById("name").value.toString().replace(" ", "");
 var listParticipant = [];
 var listParticipantSelectionne = [];
 var listParticipantPourSupprimer = [];
@@ -30,71 +30,6 @@ if (participantRecuprere != "" && participantRecuprere != null) {
     //appel de la fonction pour réintégrer les participant dans la liste d'affichage
     //avec comme paramètre les valeur appartenant à l'objet correspondnant
     rajoutParticipantLocalStorage(id, nom, prenom, sexe);
-  }
-}
-
-var listGroupeLSRecuperer = localStorage.getItem("listGroupes");
-var nbGroupeLS = 0;
-var longueurListe = "";
-var sexeLS;
-var nomLS;
-var prenomLS;
-var nbGroupe = 1;
-
-//console.log("list de base: " + listGroupeLSRecuperer);
-if (listGroupeLSRecuperer != "" && listGroupeLSRecuperer != null) {
-  listGroupeLSRecuperer = JSON.parse(listGroupeLSRecuperer);
-  console.log("listGroupeLSRecuperer: " + listGroupeLSRecuperer);
-  longueurListe = listGroupeLSRecuperer.length - 1;
-  for (var i = 0; i < listGroupeLSRecuperer.length; i++) {
-    console.log("divGroupe");
-    listeGroupeLS = listGroupeLSRecuperer[i];
-    console.log("liste des groupes: " + listeGroupeLS);
-    console.dir(listeGroupeLS.slice(-1));
-    recreerDivGroup(nbGroupe, listeGroupeLS);
-    nbGroupe++;
-  }
-}
-
-function recreerDivGroup(nbGroupe, listeGroupeLS) {
-  var listeGroupeLS = listeGroupeLS;
-  console.log("ici " + listeGroupeLS);
-  var nbGroupe = nbGroupe;
-
-  element_crée = document.createElement("div");
-  var element_recuperer_dans_le_html = document.getElementById("result"); //creating element
-  element_crée.className = "resultat"; //adding class Name on the element
-  element_crée.textContent += "GROUPE " + nbGroupe + "\r\n"; //add the content in the element
-  element_recuperer_dans_le_html.appendChild(element_crée);
-
-  for (var a = 0; a < listeGroupeLS.length - 1; a++) {
-    console.log("divParticipant");
-    var attributParticipantLS = listeGroupeLS[a];
-    // console.log("liste des participants dans les groupes: " + attributParticipantLS);
-
-    var sexeLS = attributParticipantLS[0];
-    var nomLS = attributParticipantLS[1];
-    var prenomLS = attributParticipantLS[2];
-    // console.log(sexeLS);
-    // console.log(nomLS);
-    // console.log(prenomLS);
-
-    for (var i = 0; i <= 0; i++) {
-      var sexe = sexeLS;
-      //creation des element necesaire pour crée les div pour chaque nom
-      var participant = document.createElement("div");
-      var div_par_parsone = document.createTextNode(nomLS + " " + prenomLS + "\r\n");
-      //ajout defant et pointage  sur le premier enfant courant crée
-      if (sexe == "femme") {
-        participant.className = "participant nomPrenomFemme";
-      } else {
-        participant.className = "participant nomPrenomHomme";
-      }
-      // vaut mieux ajouter la class du sexe dans la ligne vide participant.className=" nom de la class";
-      participant.appendChild(div_par_parsone);
-      var cible = element_crée;
-      cible.appendChild(participant);
-    }
   }
 }
 
@@ -185,9 +120,9 @@ function main() {
 }
 
 function controle() {
-  var prenom = document.getElementById("fname").value.toString().replaceAll(" ", "");
+  var prenom = document.getElementById("fname").value.toString().replace(" ", "");
   prenom = upperCaseFirstLetter(prenom);
-  var nom = document.getElementById("name").value.toString().toUpperCase().replaceAll(" ", "");
+  var nom = document.getElementById("name").value.toString().toUpperCase().replace(" ", "");
   var femme = document.getElementById("inputsSexeFemme").checked;
   var homme = document.getElementById("inputsSexeHomme").checked;
   //console.log(femme);
@@ -393,9 +328,9 @@ function rajoutParticipantLocalStorage(id, nom, prenom, sexe) {
 
 function ajoutParticipant() {
   var sexe = genre();
-  var prenom = document.getElementById("fname").value.toString().replaceAll(" ", "");
+  var prenom = document.getElementById("fname").value.toString().replace(" ", "");
   prenom = upperCaseFirstLetter(prenom);
-  var nom = document.getElementById("name").value.toString().toUpperCase().replaceAll(" ", "");
+  var nom = document.getElementById("name").value.toString().toUpperCase().replace(" ", "");
   var id = idParticipant();
   var j = 0;
 
@@ -604,12 +539,7 @@ document.getElementById("radioBTNNbGroup").addEventListener("click", () => {
 
 function gen() {
   var depassement = listParticipant.length % valeur_taille_de_groupe;
-  var listGroupeLS = [];
   // console.log(listParticipant.length);
-  if (listParticipant.length == 0) {
-    alert("list de participant vide");
-    return false;
-  }
   if (valeur_taille_de_groupe != null) {
     if (depassement == 0) {
       // si c'est pair
@@ -630,7 +560,6 @@ function gen() {
         // console.log(liste);
         //show
         for (let i = 0; i < 1; i++) {
-          var listeInfoLS = [];
           element_crée = document.createElement("div");
           var element_recuperer_dans_le_html = document.getElementById("result"); //creating element
           element_crée.className = "resultat"; //adding class Name on the element
@@ -638,13 +567,12 @@ function gen() {
           element_recuperer_dans_le_html.appendChild(element_crée);
 
           for (let j = 0; j < valeur_taille_de_groupe; j++) {
-            var attributParticipant = [];
             var sexe = liste[j].sexe;
-            var nom = liste[j].nom;
-            var prenom = liste[j].prenom;
             //creation des element necesaire pour crée les div pour chaque nom
             var participant = document.createElement("div");
-            var div_par_parsone = document.createTextNode(nom + " " + prenom + "\r\n");
+            var div_par_parsone = document.createTextNode(
+              liste[j].nom + " " + liste[j].prenom + "\r\n"
+            );
             //ajout defant et pointage  sur le premier enfant courant crée
             if (sexe == "femme") {
               participant.className = "participant nomPrenomFemme";
@@ -655,22 +583,14 @@ function gen() {
             participant.appendChild(div_par_parsone);
             var cible = element_crée;
             cible.appendChild(participant);
-            attributParticipant.push(sexe, nom, prenom);
-            //console.log("attributPArticipant: " + attributParticipant);
-            listeInfoLS.push(attributParticipant);
           }
-          listeInfoLS.push(nb);
-          console.dir(listeInfoLS);
         }
         nb++;
-        listGroupeLS.push(listeInfoLS);
-        localStorage.setItem("listGroupes", JSON.stringify(listGroupeLS));
       }
     }
     if (listParticipant.length == 3) {
       console.log("alaouaqueba");
       for (i = 0; i <= listParticipant.length; i++) {
-        var listeInfoLS = [];
         var valeur;
         var element_crée;
         var supprimParticipantDouble;
@@ -715,13 +635,9 @@ function gen() {
             var cible = element_crée;
             cible.appendChild(participant);
           }
-          listeInfoLS.push(nb);
-          console.dir(listeInfoLS);
           nb++;
         }
         T_groupe -= 1;
-        listGroupeLS.push(listeInfoLS);
-        localStorage.setItem("listGroupes", JSON.stringify(listGroupeLS));
       }
     }
     if (listParticipant.length > 3) {
@@ -784,8 +700,6 @@ function gen() {
               cible.appendChild(participant);
             }
             nb++;
-            listGroupeLS.push(listeInfoLS);
-            localStorage.setItem("listGroupes", JSON.stringify(listGroupeLS));
           }
         }
       } else {
@@ -836,15 +750,13 @@ function gen() {
               cible.appendChild(participant);
             }
             nb++;
-            listGroupeLS.push(listeInfoLS);
-            localStorage.setItem("listGroupes", JSON.stringify(listGroupeLS));
           }
         }
       }
     }
   }
   if (valeur_nombre_de_groupe != null) {
-    console.log("sble");
+
 
     if (listParticipant.length == 3) {
       console.log("alaouaqueba");
@@ -898,7 +810,7 @@ function gen() {
       }
     }
     if (listParticipant.length > 3) {
-      let tour = listParticipant.length / valeur_nombre_de_groupe;
+      let tour = Math.floor(listParticipant.length / valeur_nombre_de_groupe);
       //confirm("votre liste de persone est impair veuillez confirmez");
       console.log("tata");
       if (listParticipant.length % valeur_nombre_de_groupe != 0) {
@@ -910,13 +822,23 @@ function gen() {
           let liste = [];
           let res = 0;
 
-          for (let k = 0; k <= tour; k++) {
+
+          for (let k = 0; k <= tour-1; k++) {
             valeur = Math.floor(Math.random() * listParticipant.length);
             liste.push(listParticipant[valeur]);
 
             supprimParticipantDouble = listParticipant.indexOf(listParticipant[valeur]);
             listParticipant.splice(supprimParticipantDouble, 1); //add in myIndex
-            res++;
+
+          }
+
+          if (nb==valeur_nombre_de_groupe) {
+            console.log("hehr");
+            valeur = Math.floor(Math.random() * listParticipant.length);
+            liste.push(listParticipant[valeur]);
+
+            supprimParticipantDouble = listParticipant.indexOf(listParticipant[valeur]);
+            listParticipant.splice(supprimParticipantDouble, 1); //add in myIndex
           }
           console.log(liste);
           //show
@@ -928,7 +850,8 @@ function gen() {
             element_crée.textContent += "GROUPE " + nb + "\r\n"; //add the content in the element
             element_recuperer_dans_le_html.appendChild(element_crée);
 
-            for (let j = 0; j < tour; j++) {
+
+            for (let j = 0; j < tour+1; j++) {
               if (liste[j] == undefined) {
                 break;
               }
@@ -950,11 +873,13 @@ function gen() {
               cible.appendChild(participant);
             }
             nb++;
+
           }
+
         }
       } else {
         console.log("tete");
-        let tour = listParticipant.length / valeur_nombre_de_groupe;
+        let tour = Math.floor(listParticipant.length / valeur_nombre_de_groupe);
         for (i = 0; i <= tour - 1; i++) {
           var valeur;
           var element_crée;
